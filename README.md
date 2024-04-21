@@ -1,5 +1,7 @@
 ## Recreating "readelf"
 
+This is an assignment provided by **EE 491F Software Reverse Engineering** course.
+
 ## Description 
 
 This project we will be creating two programs. One called readelf_h and readelf_s, each one will reproduce the functionality of readelf. Readelf_h will recreate the functionality of `readelf -h <executable>` and Readelf_s will recreate the functionality of `readelf-s <executable>`.
