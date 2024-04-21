@@ -87,5 +87,5 @@ struct ELF_Header {
     int               i_sectionHeaderStringTableIndex;
 };
 
-struct ELF_Header InitElfHeader (FILE ELF_File);
+struct ELF_Header InitElfHeader (FILE* ELF_File);
 void PrintHeaderOutput (struct ELF_Header ELF_Header);

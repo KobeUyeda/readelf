@@ -11,7 +11,7 @@
 ###############################################################################
 
 
-TARGET = wc
+TARGET = readelf_h
 
 all: $(TARGET)
 
@@ -21,8 +21,8 @@ CFLAGS = -Wall -Wextra $(DEBUG_FLAGS)
 debug: DEBUG_FLAGS = -g -DDEBUG
 debug: clean $(TARGET)
 
-wc: wc.c
-	$(CC) $(CFLAGS) -o $(TARGET) wc.c
+readelf_h: main.c
+	$(CC) $(CFLAGS) -o $(TARGET) main.c
 
 test: wc
 	./wc /etc/passwd
