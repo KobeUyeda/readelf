@@ -114,23 +114,18 @@ char *NdxSymboleToValue(unsigned char type)
 
 void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
 {
-    printf("header: %d\n", ELF_Header->i_startOfSectionHeader);
     fseek(File, ELF_Header->i_startOfSectionHeader, SEEK_SET);
-
     struct SectionHeader section;
 
     for (int i = 0; i < ELF_Header->i_numberOfSectionHeaders; i++)
     {
         unsigned char data[8];
 
-        if (fread(data, 1, 4, File) != 4)
-            return;
+        fread(data, 1, 4, File);
         section.name = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-        if (fread(data, 1, 4, File) != 4)
-            return;
+        fread(data, 1, 4, File);
         section.type = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.flags = ((uint64_t)data[0]) |
                         ((uint64_t)data[1] << 8) |
                         ((uint64_t)data[2] << 16) |
@@ -139,8 +134,7 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
                         ((uint64_t)data[5] << 40) |
                         ((uint64_t)data[6] << 48) |
                         ((uint64_t)data[7] << 56);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.addr = ((uint64_t)data[0]) |
                        ((uint64_t)data[1] << 8) |
                        ((uint64_t)data[2] << 16) |
@@ -149,8 +143,7 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
                        ((uint64_t)data[5] << 40) |
                        ((uint64_t)data[6] << 48) |
                        ((uint64_t)data[7] << 56);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.offset = ((uint64_t)data[0]) |
                          ((uint64_t)data[1] << 8) |
                          ((uint64_t)data[2] << 16) |
@@ -159,8 +152,7 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
                          ((uint64_t)data[5] << 40) |
                          ((uint64_t)data[6] << 48) |
                          ((uint64_t)data[7] << 56);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.size = ((uint64_t)data[0]) |
                        ((uint64_t)data[1] << 8) |
                        ((uint64_t)data[2] << 16) |
@@ -169,14 +161,11 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
                        ((uint64_t)data[5] << 40) |
                        ((uint64_t)data[6] << 48) |
                        ((uint64_t)data[7] << 56);
-        if (fread(data, 1, 4, File) != 4)
-            return;
+        fread(data, 1, 4, File);
         section.link = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-        if (fread(data, 1, 4, File) != 4)
-            return;
+        fread(data, 1, 4, File);
         section.info = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.addralign = ((uint64_t)data[0]) |
                             ((uint64_t)data[1] << 8) |
                             ((uint64_t)data[2] << 16) |
@@ -185,8 +174,7 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
                             ((uint64_t)data[5] << 40) |
                             ((uint64_t)data[6] << 48) |
                             ((uint64_t)data[7] << 56);
-        if (fread(data, 1, 8, File) != 8)
-            return;
+        fread(data, 1, 8, File);
         section.entrySize = ((uint64_t)data[0]) |
                             ((uint64_t)data[1] << 8) |
                             ((uint64_t)data[2] << 16) |
