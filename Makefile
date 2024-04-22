@@ -10,22 +10,35 @@
 ### @author  Mark Nelson <marknels@hawaii.edu>
 ###############################################################################
 
-
-TARGET = readelf_h
-
-all: $(TARGET)
-
 CC     = gcc
 CFLAGS = -Wall -Wextra $(DEBUG_FLAGS)
 
+TARGET1=readelf_h
+TARGET2=readelf_s
+
+SOURCES=main.c readelf-h.c
+
+OBJECTS1=$(SOURCES:.c=_h.o)
+OBJECTS2=$(SOURCES:.c=_s.o)
+
+all: $(TARGET1) $(TARGET2)
+
+$(TARGET1): $(OBJECTS1)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(TARGET2): $(OBJECTS2)
+	$(CC) $(CFLAGS) -o $@ $^
+
 debug: DEBUG_FLAGS = -g -DDEBUG
-debug: clean $(TARGET)
+debug: clean all
 
-readelf_h: main.c
-	$(CC) $(CFLAGS) -o $(TARGET) main.c
+# Compile object files for TARGET1
+%_h.o: %.c
+	$(CC) $(CFLAGS) -DREAD_ELF_HEADER -c $< -o $@
 
-test: wc
-	./wc /etc/passwd
+# Compile object files for TARGET2
+%_s.o: %.c
+	$(CC) $(CFLAGS) -DREAD_ELF_SYMBOLS -c $< -o $@
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(TARGET1) $(TARGET2) $(OBJECTS1) $(OBJECTS2)

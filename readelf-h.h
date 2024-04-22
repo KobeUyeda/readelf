@@ -47,45 +47,47 @@ enum ELF_Types    {
     ET_CORE             // core file
 };
 enum ELF_Machines {
-    EM_NONE,            // unknown machine
-    EM_M32,             // AT&T WE 32100
-    EM_SPARC,           // Sun Microsystems SPARC
-    EM_386,             // Intel 80386
-    EM_68K,             // Motorola 68000
-    EM_88K,             // Motorola 88000
-    EM_860,             // Intel 80860
-    EM_MIPS,            // MIPS RS3000
-    EM_PARISC,          // HP/PA
-    EM_SPARC32PLUS,     // SPARC with enhanced instruction set
-    EM_PPC,             // PowerPC
-    EM_PPC64,           // PowerPC 64-bit
-    EM_S390,            // IBM S/390
-    EM_ARM,             // Advanced RISC Machines
-    EM_SH,              // Renesas SuperH
-    EM_SPARCV9,         // SPARC v9 64-bit
-    EM_IA_64,           // Intel Intanium
-    EM_X86_64,          // AMD x86-64
-    EM_VAX              // DEC Vax
+    EM_NONE = 0,          // No machine
+    EM_M32 = 1,           // AT&T WE 32100
+    EM_SPARC = 2,         // SPARC
+    EM_386 = 3,           // Intel 80386
+    EM_68K = 4,           // Motorola 68000
+    EM_88K = 5,           // Motorola 88000
+    EM_860 = 7,           // Intel 80860
+    EM_MIPS = 8,          // MIPS I Architecture
+    EM_PARISC = 15,       // Hewlett-Packard PA-RISC
+    EM_SPARC32PLUS = 18,  // Enhanced instruction set SPARC
+    EM_PPC = 20,          // PowerPC
+    EM_PPC64 = 21,        // 64-bit PowerPC
+    EM_S390 = 22,         // IBM System/390 Processor
+    EM_ARM = 40,          // ARM 32-bit architecture (AARCH32)
+    EM_SH = 42,           // Hitachi SH
+    EM_SPARCV9 = 43,      // SPARC Version 9
+    EM_IA_64 = 50,        // Intel IA-64 processor architecture
+    EM_X86_64 = 62,       // AMD x86-64 architecture
+    EM_VAX = 75,            // Digital VAX        
 };
 
 struct ELF_Header {
-    char             c_magic [16];
+    char              c_magic [16];
     enum ELF_Classes  e_class;
     enum ELF_Datas    e_data;
     enum ELF_Versions e_version;
     enum ELF_OSs      e_os;
     enum ELF_Types    e_type;
     enum ELF_Machines e_machine;
-    double            d_abiVersion;
-    void*             p_entry;
+    int               i_abiVersion;
+    int               i_entry;
     int               i_startOfProgramHeader;
     int               i_startOfSectionHeader;
     int               i_flags;
     int               i_sizeOfHeader;
+    int               i_sizeOfProgramHeader;
     int               i_numberOfProgramHeaders;
+    int               i_sizeOfSectionHeader;
     int               i_numberOfSectionHeaders;
     int               i_sectionHeaderStringTableIndex;
 };
 
-struct ELF_Header InitElfHeader (FILE* ELF_File);
-void PrintHeaderOutput (struct ELF_Header ELF_Header);
+struct ELF_Header* InitElfHeader (FILE* ELF_File);
+void PrintHeaderOutput (struct ELF_Header* ELF_Header);

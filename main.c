@@ -14,8 +14,7 @@
 #include <stdlib.h>    // For exit(), EXIT_SUCCESS, EXIT_FAILURE
 #include <sys/stat.h>  // For stat()
 #include "readelf-h.h" // For 
-
-#define READ_ELF_HEADER
+#include <stdlib.h>
 
 /// The main entry point for wc
 ///
@@ -27,13 +26,17 @@ int main( int argc, char* argv[] ) {
    // Checking to make sure that argc is only 2
    for (int i = 1; i < argc; i++) {
 
-      const char fileName[] = argv[i];
+      const char* fileName = argv[i];
       FILE* fp = fopen(fileName,"r");
+      struct ELF_Header* header = InitElfHeader(fp);
 
+      #ifdef READ_ELF_SYMBOL
+         PrintSymbolTable(fp, header);
+      #endif
       #ifdef READ_ELF_HEADER
-         struct ELF_Header header = InitElfHeader(fp);
          PrintHeaderOutput(header);
       #endif
+      free(header);
    }
 
    exit( EXIT_SUCCESS );
