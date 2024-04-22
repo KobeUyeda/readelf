@@ -19,25 +19,18 @@ char *TypeSymboleToValue(unsigned char type)
     {
     case 0:
         return "NOTYPE";
-        break;
     case 1:
         return ("OBJECT");
-        break;
     case 2:
         return ("FUNC");
-        break;
     case 3:
         return ("Section");
-        break;
     case 4:
         return ("File");
-        break;
     case 5:
         return ("Common");
-        break;
     case 6:
         return ("TLS");
-        break;
     default:
         return ("Unknown");
     }
@@ -49,22 +42,16 @@ char *BindSymboleToValue(unsigned char type)
     {
     case 0:
         return "LOCAL";
-        break;
     case 1:
         return ("GLOBAL");
-        break;
     case 2:
         return ("WEAK");
-        break;
     case 3:
         return ("NUM");
-        break;
     case 4:
         return ("LOOS");
-        break;
     case 5:
         return ("LOPROC");
-        break;
     default:
         return ("Unknown");
     }
@@ -76,16 +63,12 @@ char *VisSymboleToValue(unsigned char type)
     {
     case 0:
         return "DEFAULT";
-        break;
     case 1:
         return ("INTERNAL");
-        break;
     case 2:
         return ("HIDDEN");
-        break;
     case 3:
         return ("PROTECTED");
-        break;
     default:
         return ("Unknown");
     }
@@ -97,16 +80,12 @@ char *NdxSymboleToValue(unsigned char type)
     {
     case 0:
         return "UND";
-        break;
     case 1:
         return ("ABS");
-        break;
     case 2:
         return ("COM");
-        break;
     case 3:
         return ("XIN");
-        break;
     default:
         return ("Unknown");
     }
