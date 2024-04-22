@@ -11,6 +11,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "readelf-h.h"
+#include <stdint.h>
 
 enum types {
     SHT_NULL,
@@ -54,17 +55,26 @@ enum flags {
     SHF_MASKPROC
 };
 
-struct SectionHeader {
-    unsigned int       name;
-    enum types         type;
-    enum flags         flag;
-    unsigned long long addr;
-    unsigned long long offset;
-    unsigned long long size;
-    unsigned int       link;
-    unsigned int       info;
-    unsigned long long addralign;
-    unsigned long long entsize;
+struct Symbol {
+    uint32_t name;         // Offset to the symbol name in the string table
+    uint8_t  info;         // Type and binding attributes
+    uint8_t  other;        // Reserved (includes visibility)
+    uint16_t shndx;        // Section index
+    uint64_t value;        // Symbol value (address)
+    uint64_t size;         // Size of the symbol
 };
 
-void PrintSymbolTable ( struct ELF_Header* ELF_Header );
+struct SectionHeader {
+    uint32_t name;
+    uint32_t type;
+    uint64_t flags;
+    uint64_t addr;
+    uint64_t offset;
+    uint64_t size;
+    uint32_t link;
+    uint32_t info;
+    uint64_t addralign;
+    uint64_t entrySize;
+};
+
+void PrintSymbolTable ( FILE* File, struct ELF_Header* ELF_Header );

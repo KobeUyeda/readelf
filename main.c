@@ -12,8 +12,8 @@
 
 #include <stdio.h>     // For printf()
 #include <stdlib.h>    // For exit(), EXIT_SUCCESS, EXIT_FAILURE
-#include <sys/stat.h>  // For stat()
-#include "readelf-h.h" // For 
+#include <sys/stat.h>  // For stat() 
+#include "readelf-s.h" // For 
 #include <stdlib.h>
 
 /// The main entry point for wc

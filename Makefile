@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra $(DEBUG_FLAGS)
 TARGET1=readelf_h
 TARGET2=readelf_s
 
-SOURCES=main.c readelf-h.c
+SOURCES=main.c readelf-h.c readelf-s.c
 
 OBJECTS1=$(SOURCES:.c=_h.o)
 OBJECTS2=$(SOURCES:.c=_s.o)
@@ -36,9 +36,9 @@ debug: clean all
 %_h.o: %.c
 	$(CC) $(CFLAGS) -DREAD_ELF_HEADER -c $< -o $@
 
-# Compile object files for TARGET2
+# Compile object files for 
 %_s.o: %.c
-	$(CC) $(CFLAGS) -DREAD_ELF_SYMBOLS -c $< -o $@
+	$(CC) $(CFLAGS) -DREAD_ELF_SYMBOL -c $< -o $@
 
 clean:
 	rm -f $(TARGET1) $(TARGET2) $(OBJECTS1) $(OBJECTS2)
