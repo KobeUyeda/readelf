@@ -168,42 +168,15 @@ void PrintSymbolTable(FILE *File, struct ELF_Header *ELF_Header)
             fseek(File, section.offset, SEEK_SET);
             int numSymbols = section.size / sizeof(struct Symbol);
             struct Symbol *symbols = malloc(numSymbols * sizeof(struct Symbol));
-            if (symbols == NULL)
-            {
-                fprintf(stderr, "Failed to allocate memory for symbols\n");
-                return;
-            }
-            if (fread(symbols, sizeof(struct Symbol), numSymbols, File) != (long unsigned int) numSymbols)
-            {
-                fprintf(stderr, "Failed to read symbols\n");
-                free(symbols);
-                return;
-            }
+            fread(symbols, sizeof(struct Symbol), numSymbols, File);
 
             struct SectionHeader strTabSection;
             fseek(File, section.link * sizeof(struct SectionHeader), SEEK_SET);
-            if (fread(&strTabSection, sizeof(struct SectionHeader), 1, File) != 1)
-            {
-                fprintf(stderr, "Failed to read string table section header\n");
-                free(symbols);
-                return;
-            }
+            fread(&strTabSection, sizeof(struct SectionHeader), 1, File);
 
             char *stringTable = malloc(strTabSection.size);
-            if (stringTable == NULL)
-            {
-                fprintf(stderr, "Failed to allocate memory for string table\n");
-                free(symbols);
-                return;
-            }
             fseek(File, strTabSection.offset, SEEK_SET);
-            if (fread(stringTable, 1, strTabSection.size, File) != strTabSection.size)
-            {
-                fprintf(stderr, "Failed to read string table\n");
-                free(symbols);
-                free(stringTable);
-                return;
-            }
+            fread(stringTable, 1, strTabSection.size, File);
 
             printf("Symbol Table Section: \n");
             printf("   Num:    Value          Size Type    Bind   Vis      Ndx Name\n");
